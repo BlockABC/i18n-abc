@@ -1,4 +1,4 @@
-# 自动提取代码中的多语言 key，并生成对应的多语言文件（key 经过 md5 精简）
+# Auto extract translation keys/values from your code, and generate shortened key.
 
 ## 功能
 1. 自动提取待翻译的 key/value，生成缩短过后的 key（用 MD5）
