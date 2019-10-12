@@ -19,6 +19,7 @@
     "eol": "^0.9.1",
     "gulp-sort": "^2.0.0",
     "i18next-scanner": "^2.10.2",
+    "js-crc": "^0.2.0",
     "lodash": "^4.17.15",
     "sortobject": "^1.2.0",
     "vinyl": "^2.2.0",

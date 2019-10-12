@@ -6,7 +6,7 @@ const sortobject = require('sortobject')
 const VirtualFile = require('vinyl')
 const flattenObjectKeys = require('i18next-scanner/lib/flatten-object-keys').default
 const omitEmptyObject = require('i18next-scanner/lib/omit-empty-object').default
-const md5 = require('blueimp-md5')
+const crc16 = require('js-crc').crc16
 
 function getFileJSON (resPath) {
   try {
@@ -99,7 +99,7 @@ module.exports = function generateI18nextScannerConfig(config) {
 
           // 用 md5 精简 key
           translations = Object.keys(translations).reduce((reduced, key) => {
-            const shortKey = key.length > 8 ? key.slice(0, 8) + '_' + md5(key).slice(0, 3) : key
+            const shortKey = key.length > 8 ? key.slice(0, 8) + '_' + crc16(key).slice(0, 3) : key
             reduced[shortKey] = translations[key]
 
             return reduced
