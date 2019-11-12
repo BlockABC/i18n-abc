@@ -10,6 +10,7 @@ const _ = require('lodash')
 const generateI18nextScannerConfig = require('./i18next-scanner.config')
 const cleanRawLocales = require('./clean-raw-locales')
 const translateExcel = require('./tranlateExcel')
+const diff = require('./diff')
 
 const defaultConfig = {
   scan: {
@@ -35,6 +36,14 @@ const defaultConfig = {
     input: './src/locales/raw',
     output: './src/locales/raw',
     langs: ['en'],
+  },
+  diff: {
+    input: './src/locales/raw',
+    output: './src/locales/diff',
+    langs: ['en'],
+    raw: {
+      regex: /[\u4e00-\u9fa5]/,
+    }
   }
 }
 
@@ -82,6 +91,17 @@ program
     const translateConfig = getConfig(config.config).translate
 
     translateExcel(translateConfig)
+  })
+
+program
+  .command('diff')
+  .option('-c <config>', '指定配置信息，默认为 ./i18n-abc.config.js')
+  .description('从 json 文件中提取未翻译的内容，并生成 excel 文件')
+  .action(function (config) {
+    console.log('start to translate')
+    const translateConfig = getConfig(config.config).diff
+
+    diff(translateConfig, config)
   })
 
 program
