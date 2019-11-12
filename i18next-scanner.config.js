@@ -1,23 +1,11 @@
 const _ = require('lodash')
-const fs = require('fs')
 const eol = require('eol')
 const path = require('path')
 const sortobject = require('sortobject')
 const VirtualFile = require('vinyl')
 const flattenObjectKeys = require('i18next-scanner/lib/flatten-object-keys').default
 const omitEmptyObject = require('i18next-scanner/lib/omit-empty-object').default
-const crc16 = require('js-crc').crc16
-
-function getFileJSON (resPath) {
-  try {
-    return JSON.parse(fs.readFileSync(resPath).toString('utf-8'))
-  }
-  catch (e) {
-    console.error(e)
-    return {}
-  }
-}
-
+const utils = require('./utils')
 // options 里面获取不到 output，只能这样搞一个了
 module.exports = function generateI18nextScannerConfig(config) {
   return {
@@ -79,7 +67,7 @@ module.exports = function generateI18nextScannerConfig(config) {
 
           const oldTranslationPath = parser.formatResourceSavePath(lang, ns)
 
-          let oldTranslations = getFileJSON(path.resolve(config.output, oldTranslationPath))
+          let oldTranslations = utils.readJSON(path.resolve(config.output, oldTranslationPath))
 
           if (options.removeUnusedKeys) {
             const namespaceKeys = flattenObjectKeys(translations)
@@ -99,7 +87,7 @@ module.exports = function generateI18nextScannerConfig(config) {
 
           // 用 md5 精简 key
           translations = Object.keys(translations).reduce((reduced, key) => {
-            const shortKey = key.length > 8 ? key.slice(0, 8) + '_' + crc16(key).slice(0, 3) : key
+            const shortKey = utils.makeKey(key)
             reduced[shortKey] = translations[key]
 
             return reduced

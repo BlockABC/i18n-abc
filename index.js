@@ -9,6 +9,7 @@ const pkg = require('./package.json')
 const _ = require('lodash')
 const generateI18nextScannerConfig = require('./i18next-scanner.config')
 const cleanRawLocales = require('./clean-raw-locales')
+const translateExcel = require('./tranlateExcel')
 
 const defaultConfig = {
   scan: {
@@ -29,10 +30,15 @@ const defaultConfig = {
       remove: true,
       // useDefault: true // todo: 暂时还没做
     }
+  },
+  translate: {
+    input: './src/locales/raw',
+    output: './src/locales/raw',
+    langs: ['en'],
   }
 }
 
-function getConfig(configPath = 'i18n-abc.config.js') {
+function getConfig (configPath = 'i18n-abc.config.js') {
   const config = require(path.resolve(configPath))
 
   if (!config) {
@@ -56,7 +62,6 @@ program
       .pipe(vfs.dest(i18nextScannerConfig.output))
   })
 
-
 program
   .command('clean')
   .option('-c <config>', '指定配置信息，默认为 i18n-abc.config.js')
@@ -69,9 +74,20 @@ program
   })
 
 program
+  .command('translate')
+  .option('-c <config>', '指定配置信息，默认为 ./i18n-abc.config.js')
+  .description('从 Excel 中提取翻译并应用于同名的 json 文件')
+  .action(function (config) {
+    console.log('start to translate')
+    const translateConfig = getConfig(config.config).translate
+
+    translateExcel(translateConfig)
+  })
+
+program
   .version(pkg.version)
   .usage('[options] <file ...>')
   .option('--config <config>', 'Path to the config file (default: i18next-scanner.config.js)', 'i18next-scanner.config.js')
   .option('--output <path>', 'Path to the output directory (default: .)')
 
-program.parse(process.argv); // 解析命令行参数
+program.parse(process.argv) // 解析命令行参数
