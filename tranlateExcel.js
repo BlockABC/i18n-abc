@@ -11,7 +11,7 @@ module.exports = function (translateConfig) {
     const sheet = workbook.SheetNames[0]
     const worksheet = workbook.Sheets[sheet]
 
-    for (let i = 1; ;i++) {
+    for (let i = 1; i < Object.keys(worksheet).length; i++) {
       const keyIndex = `A${i}`
       const valueIndex = `B${i}`
 
@@ -20,7 +20,7 @@ module.exports = function (translateConfig) {
       let key = keyCell ? keyCell.v : null
 
       if (!key) {
-        break
+        continue
       }
 
       // 获取 value 的值
@@ -28,10 +28,11 @@ module.exports = function (translateConfig) {
       const value = valueCell ? valueCell.v : null
 
       if (key && value) {
-        key = utils.makeKey(key)
-        const jsonValue = json[key]
+        key = key.replace(/\u00A0/g, ' ') // 由于未知原因，给过来的翻译文件里面会出现 charCode===160 的空格，因此要把这种空格换成正常的空格
+        const shortenKey = utils.makeKey(key)
+        const jsonValue = json[shortenKey]
         if (jsonValue) {
-          json[key] = value
+          json[shortenKey] = value
         }
       }
     }
