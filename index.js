@@ -8,7 +8,7 @@ const scanner = require('i18next-scanner/lib')
 const pkg = require('./package.json')
 const _ = require('lodash')
 const generateI18nextScannerConfig = require('./lib/i18next-scanner.config')
-const cleanRawLocales = require('./lib/clean-raw-locales')
+const transformRawLocales = require('./lib/transform-raw-locales')
 const translateExcel = require('./lib/translate-excel')
 const diff = require('./lib/diff-increment')
 const defaultConfig = require('./i18n-abc.config.js')
@@ -38,14 +38,14 @@ program
   })
 
 program
-  .command('clean')
+  .command('transform')
   .option('-c <config>', '指定配置信息，默认为 ./i18n-abc.config.js')
-  .description('清理生成的 i18n 文件，生成"干净"的多语言文件')
+  .description('转化多语言文件，生成新的，生产环境使用的多语言文件')
   .action(function (option) {
-    console.log('start to clean')
-    const cleanConfig = getConfig(option.config).clean
+    console.log('start to transform')
+    const transformConfig = getConfig(option.config).transform
 
-    cleanRawLocales(cleanConfig)
+    transformRawLocales(transformConfig)
   })
 
 program

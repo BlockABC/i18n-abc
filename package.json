@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "node ./index.js",
-    "scan": "node ./index.js scan"
+    "i18n": "node ./index.js scan && node ./index.js transform",
+    "scan": "node ./index.js scan",
+    "transform": "node ./index.js transform"
   },
   "bin": {
     "i18n-abc": "./index.js"

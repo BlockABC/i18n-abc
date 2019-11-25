@@ -23,7 +23,7 @@ module.exports = {
     ],
     output: './src/locales/raw',
   },
-  clean: {
+  transform: {
     input: './src/locales/raw',
     output: './src/locales',
   }
@@ -39,5 +39,5 @@ i18n-abc scan
 处理 i18n 文件，比如简体中文转繁体中文，清理没有翻译的文本
 
 ```bash
-i18n-abc clean
+i18n-abc transform
 ```

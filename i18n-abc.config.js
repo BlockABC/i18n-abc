@@ -2,7 +2,7 @@
 const utils = require('./lib/utils')
 
 module.exports = {
-  // i18next-scanner 的配置
+  // 提取 locales，使用 i18next-scanner
   scan: {
     input: [
       './src/**/*.*', // 会被扫描的文件，glob
@@ -19,23 +19,27 @@ module.exports = {
     generateKey: utils.makeCrcKey,
   },
 
-  clean: {
+  // 将原始提取的 locales 生成新的 locales
+  transform: {
     input: './src/locales/raw',
     output: './src/locales',
-    autoS2T: true,
+    autoS2T: true, // 自动做繁体翻译简体
+    defaultLang: 'zh-cn', // 默认语言
     raw: {
       regex: /[\u4e00-\u9fa5]/,
-      remove: true,
-      // useDefault: true // todo: 暂时还没做
+      fallbackLang: 'en',  // 对于未翻译的语言文本，是否使用默认语言文本代替
+      removeRawKeys: true, // 对于未翻译的语言文本，是否删除；如果设置了 fallbackLang，则本条失效
     }
   },
 
+  // 从 excel 中提取翻译文本到 locales 中
   translate: {
     input: './src/locales/raw',
     output: './src/locales/raw',
-    langs: ['en'],
+    langs: ['en'], // 待提取的文件
   },
 
+  // 生成未翻译的文件
   diff: {
     input: './src/locales/raw',
     output: './src/locales/diff',
