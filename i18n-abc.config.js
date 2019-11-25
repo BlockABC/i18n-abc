@@ -1,5 +1,5 @@
 // default config
-const utils = require('./lib/utils')
+const { makeCrcKey } = require('./lib/shared')
 
 module.exports = {
   // 提取 locales，使用 i18next-scanner
@@ -16,7 +16,7 @@ module.exports = {
     langs: ['en', 'zh-CN', 'zh-TW', 'jp', 'ko'], // 生成的多语言文件
     removeUnusedKeys: true, // 是否移除没有用的文本
     // 自定义参数
-    generateKey: utils.makeCrcKey,
+    generateKey: makeCrcKey, // 生成 key 的函数
   },
 
   // 将原始提取的 locales 转化成新的 locales
@@ -38,6 +38,8 @@ module.exports = {
     input: './src/locales/raw',
     output: './src/locales/raw',
     langs: ['en'], // 待提取的文件
+
+    generateKey: makeCrcKey, // 生成 key 的函数
   },
 
   // 生成未翻译的文件
