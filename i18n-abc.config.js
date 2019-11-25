@@ -19,16 +19,17 @@ module.exports = {
     generateKey: utils.makeCrcKey,
   },
 
-  // 将原始提取的 locales 生成新的 locales
+  // 将原始提取的 locales 转化成新的 locales
   transform: {
     input: './src/locales/raw',
     output: './src/locales',
     autoS2T: true, // 自动做繁体翻译简体
-    defaultLang: 'zh-cn', // 默认语言
+    defaultLang: 'zh-cn', // 默认语言，不会对该语言进行转化
+    fallbackLang: 'en', // fallback 语言
     raw: {
       regex: /[\u4e00-\u9fa5]/,
-      fallbackLang: 'en',  // 对于未翻译的语言文本，是否使用默认语言文本代替
-      removeRawKeys: true, // 对于未翻译的语言文本，是否删除；如果设置了 fallbackLang，则本条失效
+      useFallback: true,   // 对于未翻译的语言文本，是否使用 fallback 代替
+      removeRawKeys: false, // 对于未翻译的语言文本，是否删除；如果设置了 fallbackLang，则本条失效
     }
   },
 
