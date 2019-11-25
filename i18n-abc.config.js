@@ -13,7 +13,7 @@ module.exports = {
     // eslint-disable-next-line no-useless-escape
     functions: ['\\\$t', '\\\$tt', '\\\$ttt'], // 翻译函数的名字
     extensions: ['.js', '.ts', '.vue', '.jsx', '.tsx'], // 会被解析的文件扩展
-    langs: ['en', 'zh-cn', 'zh-tw', 'jp', 'ko'], // 生成的多语言文件
+    langs: ['en', 'zh-CN', 'zh-TW', 'jp', 'ko'], // 生成的多语言文件
     removeUnusedKeys: true, // 是否移除没有用的文本
     // 自定义参数
     generateKey: utils.makeCrcKey,
@@ -24,7 +24,7 @@ module.exports = {
     input: './src/locales/raw',
     output: './src/locales',
     autoS2T: true, // 自动做繁体翻译简体
-    defaultLang: 'zh-cn', // 默认语言，不会对该语言进行转化
+    defaultLang: 'zh-CN', // 默认语言，不会对该语言进行转化
     fallbackLang: 'en', // fallback 语言
     raw: {
       regex: /[\u4e00-\u9fa5]/,
