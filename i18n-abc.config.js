@@ -1,16 +1,22 @@
 // default config
+const utils = require('./lib/utils')
+
 module.exports = {
+  // i18next-scanner 的配置
   scan: {
     input: [
       './src/**/*.*', // 会被扫描的文件，glob
       '!./src/locales',
     ],
     output: './src/locales/raw',
+    // i18next-scanner 的配置经过拉平
     // eslint-disable-next-line no-useless-escape
     functions: ['\\\$t', '\\\$tt', '\\\$ttt'], // 翻译函数的名字
     extensions: ['.js', '.ts', '.vue', '.jsx', '.tsx'], // 会被解析的文件扩展
     langs: ['en', 'zh-cn', 'zh-tw', 'jp', 'ko'], // 生成的多语言文件
-    removeUnusedKeys: true // 是否移除没有用的文本
+    removeUnusedKeys: true, // 是否移除没有用的文本
+    // 自定义参数
+    generateKey: utils.makeCrcKey,
   },
 
   clean: {
