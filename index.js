@@ -7,45 +7,11 @@ const sort = require('gulp-sort')
 const scanner = require('i18next-scanner/lib')
 const pkg = require('./package.json')
 const _ = require('lodash')
-const generateI18nextScannerConfig = require('./i18next-scanner.config')
-const cleanRawLocales = require('./clean-raw-locales')
-const translateExcel = require('./tranlateExcel')
-const diff = require('./diff')
-
-const defaultConfig = {
-  scan: {
-    input: [
-      './src/locales/raw',
-    ],
-    output: './src/locales/raw',
-    functions: ['\\\$tt', '\\\$ttt'], // 翻译函数的名字
-    extensions: ['.js', '.ts', '.vue'],
-    langs: ['en', 'zh-cn', 'zh-tw', 'jp', 'ko'],
-  },
-  clean: {
-    input: './src/locales/raw',
-    output: './src/locales',
-    autoS2T: true,
-    raw: {
-      regex: /[\u4e00-\u9fa5]/,
-      remove: true,
-      // useDefault: true // todo: 暂时还没做
-    }
-  },
-  translate: {
-    input: './src/locales/raw',
-    output: './src/locales/raw',
-    langs: ['en'],
-  },
-  diff: {
-    input: './src/locales/raw',
-    output: './src/locales/diff',
-    langs: ['en'],
-    raw: {
-      regex: /[\u4e00-\u9fa5]/,
-    }
-  }
-}
+const generateI18nextScannerConfig = require('./lib/i18next-scanner.config')
+const cleanRawLocales = require('./lib/clean-raw-locales')
+const translateExcel = require('./lib/translate-excel')
+const diff = require('./lib/diff-increment')
+const defaultConfig = require('./i18n-abc.config.js')
 
 function getConfig (configPath = 'i18n-abc.config.js') {
   const config = require(path.resolve(configPath))
@@ -59,7 +25,7 @@ function getConfig (configPath = 'i18n-abc.config.js') {
 
 program
   .command('scan')
-  .option('-c <config>', '指定配置信息，默认为 i18n-abc.config.js')
+  .option('-c <config>', '指定配置信息，默认为 ./i18n-abc.config.js')
   .description('扫描文件内容，生成 i18n 的多语言文件')
   .action(function (option) {
     console.log('start to scan')
@@ -73,7 +39,7 @@ program
 
 program
   .command('clean')
-  .option('-c <config>', '指定配置信息，默认为 i18n-abc.config.js')
+  .option('-c <config>', '指定配置信息，默认为 ./i18n-abc.config.js')
   .description('清理生成的 i18n 文件，生成"干净"的多语言文件')
   .action(function (option) {
     console.log('start to clean')
