@@ -5,7 +5,7 @@ module.exports = {
   // 提取 locales，使用 i18next-scanner
   scan: {
     input: [
-      './src/**/*.*', // 会被扫描的文件，glob
+      './src/**/*.{js,ts,tsx,jsx,vue}', // 会被扫描的文件，glob
       '!./src/locales',
     ],
     output: './src/locales/raw',
@@ -35,7 +35,7 @@ module.exports = {
 
   // 从 excel 中提取翻译文本到 locales 中
   translate: {
-    input: './src/locales/raw',
+    input: './src/locales/translation',
     output: './src/locales/raw',
     langs: ['en'], // 待提取的文件
 
