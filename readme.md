@@ -60,3 +60,12 @@ i18n-abc diff
 ```shell script
 i18n-abc translate
 ```
+
+## todo
+1. 增加一个 root path，所有配置都相对于该 root path
+```json
+{
+  "root": "./web/",
+  "scan": {}
+}
+```
