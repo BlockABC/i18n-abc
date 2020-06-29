@@ -29,7 +29,8 @@ program
   .description('扫描文件内容，生成 i18n 的多语言文件')
   .action(function (option) {
     console.log('start to scan')
-    const i18nextScannerConfig = generateI18nextScannerConfig(getConfig(option.config).scan)
+    console.log(option)
+    const i18nextScannerConfig = generateI18nextScannerConfig(getConfig(option.C).scan)
 
     vfs.src(i18nextScannerConfig.input)
       .pipe(sort()) // Sort files in stream by path
@@ -43,7 +44,7 @@ program
   .description('转化多语言文件，生成新的，生产环境使用的多语言文件')
   .action(function (option) {
     console.log('start to transform')
-    const transformConfig = getConfig(option.config).transform
+    const transformConfig = getConfig(option.C).transform
 
     transformRawLocales(transformConfig)
   })
