@@ -29,7 +29,6 @@ program
   .description('扫描文件内容，生成 i18n 的多语言文件')
   .action(function (option) {
     console.log('start to scan')
-    console.log(option)
     const i18nextScannerConfig = generateI18nextScannerConfig(getConfig(option.C).scan)
 
     vfs.src(i18nextScannerConfig.input)
