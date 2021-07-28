@@ -17,21 +17,21 @@
   "license": "ISC",
   "dependencies": {
     "chinese-s2t": "^1.0.0",
-    "commander": "^3.0.1",
+    "commander": "^8.1.0",
     "eol": "^0.9.1",
     "gulp-sort": "^2.0.0",
-    "i18next-scanner": "^2.10.2",
+    "i18next-scanner": "^3.0.0",
     "js-crc": "^0.2.0",
-    "lodash": "^4.17.15",
-    "sortobject": "^1.2.0",
-    "vinyl": "^2.2.0",
+    "lodash": "^4.17.21",
+    "sortobject": "^4.15.0",
+    "vinyl": "^2.2.1",
     "vinyl-fs": "^3.0.3",
-    "xlsx": "^0.15.1"
+    "xlsx": "^0.17.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
-    "eslint": "^6.3.0",
-    "eslint-config-blockabc": "^0.8.3",
-    "typescript": "^3.6.4"
+    "eslint": "^7.31.0",
+    "eslint-config-blockabc": "^0.13.0",
+    "typescript": "^4.3.5"
   }
 }
