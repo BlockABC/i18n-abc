@@ -20,7 +20,11 @@ function getConfig (configPath = 'i18n-abc.config.js') {
     throw new Error('未找到 i18n-abc.config.js 文件')
   }
 
-  return _.merge(defaultConfig, config)
+  return _.mergeWith(defaultConfig, config, function (objValue, srcValue) {
+    if (_.isArray(objValue) && _.isArray(srcValue)) {
+      return srcValue
+    }
+  })
 }
 
 program
